@@ -36,14 +36,14 @@ class Main : BloonsMod
         public override int TopPathUpgrades => 4;
         public override int MiddlePathUpgrades => 4;
         public override int BottomPathUpgrades => 0;
-        public override int GetTowerIndex(List<TowerDetailsModel> towerSet) => towerSet.First(model => model.towerId == TowerType.GlueGunner).towerIndex + 1;
+        public override int GetTowerIndex(List<TowerDetailsModel> towerSet) => towerSet.First(model => model.towerId == TowerType.SniperMonkey).towerIndex + 1;
         public override bool IsValidCrosspath(int[] tiers) => ModHelper.HasMod("UltimateCrosspathing") || base.IsValidCrosspath(tiers);
         public override TowerSet TowerSet => TowerSet.Military;
 
         public override void ModifyBaseTowerModel(TowerModel towerModel)
         {
             towerModel.ApplyDisplay<CobraBaseDisplay>();
-            towerModel.GetBehavior<DisplayModel>().positionOffset = new Vector3(0, 0, 0.1f);
+            towerModel.GetBehavior<DisplayModel>().positionOffset = new Vector3(0, 0, 10);
 
             foreach (var weaponModel in towerModel.GetWeapons())
             {
@@ -69,7 +69,7 @@ class Main : BloonsMod
         public override void ApplyUpgrade(TowerModel towerModel)
         {
             towerModel.ApplyDisplay<Top1Display>();
-            towerModel.GetBehavior<DisplayModel>().positionOffset = new Vector3(0, 0, 0.1f);
+            towerModel.GetBehavior<DisplayModel>().positionOffset = new Vector3(0, 0, 10);
 
             towerModel.AddBehavior(Game.instance.model.GetTowerFromId("BananaFarm-005").GetBehavior<PerRoundCashBonusTowerModel>().Duplicate());
             towerModel.GetBehavior<PerRoundCashBonusTowerModel>().cashPerRound = 70;
@@ -87,7 +87,7 @@ class Main : BloonsMod
         public override void ApplyUpgrade(TowerModel towerModel)
         {
             towerModel.ApplyDisplay<Top2Display>();
-            towerModel.GetBehavior<DisplayModel>().positionOffset = new Vector3(0, 0, 0.1f);
+            towerModel.GetBehavior<DisplayModel>().positionOffset = new Vector3(0, 0, 10);
 
             towerModel.GetWeapon().projectile.collisionPasses = new int[] { 0, -1 };
             towerModel.GetAttackModel().weapons[0].projectile.AddBehavior(new RemoveBloonModifiersModel("RemoveBloonModifiersModel", true, true, false, true, false, new Il2CppStringArray(0).ToIl2CppList()));
@@ -106,7 +106,7 @@ class Main : BloonsMod
         public override void ApplyUpgrade(TowerModel towerModel)
         {
             towerModel.ApplyDisplay<Top3Display>();
-            towerModel.GetBehavior<DisplayModel>().positionOffset = new Vector3(0, 0, 0.1f);
+            towerModel.GetBehavior<DisplayModel>().positionOffset = new Vector3(0, 0, 10);
 
             AbilityCooldownScaleSupportModel buff = new("AbilityCooldownScaleSupportModel", false, 1.5f, false, false, null, "Monkey Stim", "Top3-Icon", false, 1);
             buff.ApplyBuffIcon<CobraBuffIcon>();
@@ -118,14 +118,14 @@ class Main : BloonsMod
     {
         public override string Name => "Top4";
         public override string DisplayName => "Offensive Push";
-        public override string Description => "Sends a BFB every 15 seconds.";
+        public override string Description => "Sends a BFB every 20 seconds.";
         public override int Cost => 12500;
         public override int Path => TOP;
         public override int Tier => 4;
         public override void ApplyUpgrade(TowerModel towerModel)
         {
             towerModel.ApplyDisplay<Top4Display>();
-            towerModel.GetBehavior<DisplayModel>().positionOffset = new Vector3(0, 0, 0.1f);
+            towerModel.GetBehavior<DisplayModel>().positionOffset = new Vector3(0, 0, 10);
 
             //credit: DatJaneDoe: BloonSpawner
             SwordChargeModel behavior = AbilityModelBehaviorExt.GetBehavior<SwordChargeModel>(ModelExt.Duplicate(TowerModelBehaviorExt.GetBehaviors<AbilityModel>(Game.instance.model.towers.First(a => a.name.Contains("Sauda 10")))[1]));
@@ -140,9 +140,9 @@ class Main : BloonsMod
             ProjectileModelBehaviorExt.GetBehavior<TravelAlongPathModel>(behavior.projectileModel).disableRotateWithPathDirection = false;
             ProjectileModelBehaviorExt.RemoveBehavior<DestroyIfTargetLostModel>(behavior.projectileModel);
 
-            towerModel.AddBehavior(Game.instance.model.GetTowerFromId("DartMonkey").GetBehavior<AttackModel>().Duplicate());
+            towerModel.AddBehavior(Game.instance.model.GetTowerFromId("SniperMonkey").GetBehavior<AttackModel>().Duplicate());
             towerModel.GetAttackModels()[1].weapons[0].projectile = behavior.projectileModel;
-            towerModel.GetAttackModels()[1].weapons[0].rate = 15;
+            towerModel.GetAttackModels()[1].weapons[0].rate = 20;
         }
     }
 
@@ -157,7 +157,7 @@ class Main : BloonsMod
         public override void ApplyUpgrade(TowerModel towerModel)
         {
             towerModel.ApplyDisplay<Middle1Display>();
-            towerModel.GetBehavior<DisplayModel>().positionOffset = new Vector3(0, 0, 0.1f);
+            towerModel.GetBehavior<DisplayModel>().positionOffset = new Vector3(0, 0, 10);
 
             towerModel.GetWeapon().rate *= 0.5f;
         }
@@ -174,7 +174,7 @@ class Main : BloonsMod
         public override void ApplyUpgrade(TowerModel towerModel)
         {
             towerModel.ApplyDisplay<Middle2Display>();
-            towerModel.GetBehavior<DisplayModel>().positionOffset = new Vector3(0, 0, 0.1f);
+            towerModel.GetBehavior<DisplayModel>().positionOffset = new Vector3(0, 0, 10);
 
             towerModel.AddBehavior(Game.instance.model.GetTowerFromId("BananaFarm-005").GetBehavior<BonusLivesPerRoundModel>().Duplicate());
             towerModel.GetBehavior<BonusLivesPerRoundModel>().amount = 2;
@@ -192,14 +192,14 @@ class Main : BloonsMod
         public override void ApplyUpgrade(TowerModel towerModel)
         {
             towerModel.ApplyDisplay<Middle3Display>();
-            towerModel.GetBehavior<DisplayModel>().positionOffset = new Vector3(0, 0, 0.1f);
+            towerModel.GetBehavior<DisplayModel>().positionOffset = new Vector3(0, 0, 10);
 
             AbilityModel ability = Game.instance.model.GetTowerFromId("AdmiralBrickell 3").Duplicate().GetBehavior<AbilityModel>();
             ability.icon = GetSpriteReference("Middle3-Icon");
             ability.GetBehavior<ActivateRateSupportZoneModel>().filters[0] = new FilterTowerByPlaceableAreaModel("FilterTowerByPlaceableAreaModel", new AreaType[] { AreaType.water, AreaType.land, AreaType.ice });
             towerModel.AddBehavior(ability);
 
-            towerModel.GetWeapon().rate *= 0.75f;
+            towerModel.GetWeapon().rate *= 0.5f;
             towerModel.GetWeapon().projectile.GetDamageModel().damage += 3;
             towerModel.GetWeapon().projectile.GetDamageModel().immuneBloonProperties = 0;
         }
@@ -216,7 +216,7 @@ class Main : BloonsMod
         public override void ApplyUpgrade(TowerModel towerModel)
         {
             towerModel.ApplyDisplay<Middle4Display>();
-            towerModel.GetBehavior<DisplayModel>().positionOffset = new Vector3(0, 0, 0.1f);
+            towerModel.GetBehavior<DisplayModel>().positionOffset = new Vector3(0, 0, 10);
 
             WindModel Knockback = Game.instance.model.GetTowerFromId("NinjaMonkey-010").GetWeapon().projectile.GetBehavior<WindModel>().Duplicate();
             Knockback.affectMoab = true;
